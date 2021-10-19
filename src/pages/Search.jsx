@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from '../components/Header';
 import searchAlbumsAPI from '../services/searchAlbumsAPI';
+import Loading from './Loading';
 
 class Search extends React.Component {
   constructor() {
@@ -9,6 +10,8 @@ class Search extends React.Component {
     this.state = {
       nameInput: '',
       disableButton: true,
+      loading: false,
+      artist: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -29,12 +32,18 @@ class Search extends React.Component {
     }
   }
 
-  makingRequest() {
+  async makingRequest() {
     const { nameInput } = this.state;
     this.setState({
-      nameInput: '',
+      loading: true,
     });
-    searchAlbumsAPI(nameInput);
+    const objectArtist = await searchAlbumsAPI(nameInput);
+    this.setState({
+      artist: nameInput,
+      nameInput: '',
+      loading: false,
+    });
+    console.log(objectArtist);
   }
 
   render() {
@@ -43,24 +52,32 @@ class Search extends React.Component {
     return (
       <div data-testid="page-search">
         <Header />
-        <form>
-          <input
-            type="text"
-            name="nameInput"
-            id="search-artist-input"
-            data-testid="search-artist-input"
-            value={ valueState.nameInput }
-            onChange={ this.handleChange }
-          />
-          <button
-            type="button"
-            onClick={ this.makingRequest }
-            disabled={ valueState.disableButton }
-            data-testid="search-artist-button"
-          >
-            Pesquisar
-          </button>
-        </form>
+        {!valueState.loading ? (
+          <form>
+            <input
+              type="text"
+              name="nameInput"
+              id="search-artist-input"
+              data-testid="search-artist-input"
+              value={ valueState.nameInput }
+              onChange={ this.handleChange }
+            />
+            <button
+              type="submit"
+              onClick={ this.makingRequest }
+              disabled={ valueState.disableButton }
+              data-testid="search-artist-button"
+            >
+              Pesquisar
+            </button>
+          </form>
+        ) : (
+          <Loading />
+        )}
+        {
+          valueState.artist.length > 0
+          && <p>{`Resultado de álbuns de: ${valueState.artist}`}</p>
+        }
       </div>
     );
   }
