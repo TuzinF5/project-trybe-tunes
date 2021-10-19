@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from '../components/Header';
+import searchAlbumsAPI from '../services/searchAlbumsAPI';
 
 class Search extends React.Component {
   constructor() {
@@ -11,6 +12,7 @@ class Search extends React.Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.makingRequest = this.makingRequest.bind(this);
   }
 
   handleChange({ target: { name, value } }) {
@@ -25,6 +27,14 @@ class Search extends React.Component {
         disableButton: false,
       });
     }
+  }
+
+  makingRequest() {
+    const { nameInput } = this.state;
+    this.setState({
+      nameInput: '',
+    });
+    searchAlbumsAPI(nameInput);
   }
 
   render() {
@@ -43,7 +53,8 @@ class Search extends React.Component {
             onChange={ this.handleChange }
           />
           <button
-            type="submit"
+            type="button"
+            onClick={ this.makingRequest }
             disabled={ valueState.disableButton }
             data-testid="search-artist-button"
           >

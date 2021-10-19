@@ -69,7 +69,7 @@ class Login extends React.Component {
             data-testid="login-name-input"
           />
           <button
-            type="submit"
+            type="button"
             onClick={ () => this.saveInputName(valueState.loginNameInput) }
             disabled={ valueState.disableButton }
             data-testid="login-submit-button"
