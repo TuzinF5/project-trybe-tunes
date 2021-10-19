@@ -13,6 +13,9 @@ class Search extends React.Component {
             id="search-artist-input"
             data-testid="search-artist-input"
           />
+          <button type="submit" data-testid="search-artist-button">
+            Pesquisar
+          </button>
         </form>
       </div>
     );
