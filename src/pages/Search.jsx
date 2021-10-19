@@ -12,6 +12,7 @@ class Search extends React.Component {
       disableButton: true,
       loading: false,
       artist: '',
+      artistList: [],
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -42,8 +43,8 @@ class Search extends React.Component {
       artist: nameInput,
       nameInput: '',
       loading: false,
+      artistList: objectArtist,
     });
-    console.log(objectArtist);
   }
 
   render() {
@@ -74,10 +75,16 @@ class Search extends React.Component {
         ) : (
           <Loading />
         )}
-        {
-          valueState.artist.length > 0
-          && <p>{`Resultado de álbuns de: ${valueState.artist}`}</p>
-        }
+        {valueState.artist.length > 0 && (
+          <div>
+            <p>{`Resultado de álbuns de: ${valueState.artist}`}</p>
+            <ul>
+              {valueState.artistList.map((element) => (
+                <li key={ element.artistId }>{element.collectionName}</li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
     );
   }
