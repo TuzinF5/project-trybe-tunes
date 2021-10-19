@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import searchAlbumsAPI from '../services/searchAlbumsAPI';
 import Loading from './Loading';
@@ -78,9 +79,21 @@ class Search extends React.Component {
         {valueState.artist.length > 0 && (
           <div>
             <p>{`Resultado de álbuns de: ${valueState.artist}`}</p>
-            {valueState.artistList.map((element, index) => (
-              <p key={ index }>{element.collectionName}</p>
-            ))}
+            {valueState.artistList.length === 0 ? (
+              <p>Nenhum álbum foi encontrado</p>
+            ) : (
+              valueState.artistList.map((element, index) => (
+                <div key={ index }>
+                  <p>{element.collectionName}</p>
+                  <Link
+                    to={ `/album/${element.collectionId}` }
+                    data-testid={ `link-to-album-${element.collectionId}` }
+                  >
+                    {element.artistName}
+                  </Link>
+                </div>
+              ))
+            )}
           </div>
         )}
       </div>
