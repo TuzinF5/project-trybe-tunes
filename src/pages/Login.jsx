@@ -1,4 +1,5 @@
 import React from 'react';
+import { createUser } from '../services/userAPI';
 
 class Login extends React.Component {
   constructor() {
@@ -40,7 +41,8 @@ class Login extends React.Component {
             data-testid="login-name-input"
           />
           <button
-            type="button"
+            type="submit"
+            onClick={ () => createUser({ name: valueState.loginNameInput }) }
             disabled={ valueState.disableButton }
             data-testid="login-submit-button"
           >
