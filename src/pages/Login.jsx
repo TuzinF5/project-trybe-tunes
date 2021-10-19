@@ -1,5 +1,7 @@
 import React from 'react';
+import { Redirect } from 'react-router';
 import { createUser } from '../services/userAPI';
+import Loading from './Loading';
 
 class Login extends React.Component {
   constructor() {
@@ -8,9 +10,13 @@ class Login extends React.Component {
     this.state = {
       loginNameInput: '',
       disableButton: true,
+      loading: false,
+      redirect: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.checkInputSize = this.checkInputSize.bind(this);
+    this.saveInputName = this.saveInputName.bind(this);
   }
 
   handleChange({ target: { name, value } }) {
@@ -27,8 +33,30 @@ class Login extends React.Component {
     }
   }
 
+  async saveInputName(loginNameInput) {
+    this.setState({
+      loading: true,
+    });
+    await createUser({ name: loginNameInput });
+    this.setState({
+      redirect: true,
+    });
+  }
+
   render() {
     const valueState = this.state;
+
+    if (valueState.loading) {
+      return (
+        <div>
+          <Loading />
+          {
+            valueState.redirect && <Redirect to="/search" />
+          }
+        </div>
+      );
+    }
+
     return (
       <div data-testid="page-login">
         <form>
@@ -42,7 +70,7 @@ class Login extends React.Component {
           />
           <button
             type="submit"
-            onClick={ () => createUser({ name: valueState.loginNameInput }) }
+            onClick={ () => this.saveInputName(valueState.loginNameInput) }
             disabled={ valueState.disableButton }
             data-testid="login-submit-button"
           >
