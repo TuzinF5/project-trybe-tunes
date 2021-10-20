@@ -42,12 +42,10 @@ class Album extends React.Component {
             <p data-testid="album-name">{musicList[0].collectionName}</p>
             <div>
               {musicList.slice(1)
-                .map((element, index) => (
+                .map((element) => (
                   <MusicCard
-                    key={ index }
-                    trackName={ element.trackName }
-                    previewUrl={ element.previewUrl }
-                    trackId={ element.trackId }
+                    key={ element.trackId }
+                    element={ element }
                   />
                 ))}
             </div>
