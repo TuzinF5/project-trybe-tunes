@@ -12,6 +12,7 @@ class MusicCard extends React.Component {
     };
 
     this.requestAddSong = this.requestAddSong.bind(this);
+    this.click = this.click.bind(this);
   }
 
   async requestAddSong() {
@@ -22,8 +23,20 @@ class MusicCard extends React.Component {
     await addSong(element);
     this.setState({
       loading: false,
-      checked: true,
     });
+  }
+
+  click() {
+    const { checked } = this.state;
+    if (checked) {
+      this.setState({
+        checked: false,
+      });
+    } else {
+      this.setState({
+        checked: true,
+      });
+    }
   }
 
   render() {
@@ -48,6 +61,7 @@ class MusicCard extends React.Component {
             name=""
             id={ trackId }
             checked={ checked }
+            onClick={ this.click }
             onChange={ this.requestAddSong }
             data-testid={ `checkbox-music-${trackId}` }
           />
