@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import getMusics from '../services/musicsAPI';
+import MusicCard from '../components/MusicCard';
 
 class Album extends React.Component {
   constructor() {
@@ -19,7 +20,11 @@ class Album extends React.Component {
   }
 
   resultGetMusic = async () => {
-    const { match: { params: { id } } } = this.props;
+    const {
+      match: {
+        params: { id },
+      },
+    } = this.props;
     const music = await getMusics(id);
     this.setState({
       musicList: music,
@@ -35,6 +40,16 @@ class Album extends React.Component {
           <div>
             <p data-testid="artist-name">{musicList[0].artistName}</p>
             <p data-testid="album-name">{musicList[0].collectionName}</p>
+            <div>
+              {musicList.slice(1)
+                .map((element, index) => (
+                  <MusicCard
+                    key={ index }
+                    trackName={ element.trackName }
+                    previewUrl={ element.previewUrl }
+                  />
+                ))}
+            </div>
           </div>
         )}
       </div>
