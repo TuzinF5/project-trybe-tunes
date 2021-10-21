@@ -19,6 +19,7 @@ class ProfileEdit extends React.Component {
     this.userInformation = this.userInformation.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.inputValidation = this.inputValidation.bind(this);
+    this.emailValidation = this.emailValidation.bind(this);
   }
 
   componentDidMount() {
@@ -29,6 +30,17 @@ class ProfileEdit extends React.Component {
     this.setState({
       [event.target.name]: event.target.value,
     }, () => this.inputValidation());
+  }
+
+  emailValidation() {
+    const { email } = this.state;
+    const emailValue = email;
+    const validation = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/gim;
+    if (!validation.test(emailValue)) {
+      this.setState({
+        email: '',
+      });
+    }
   }
 
   inputValidation() {
@@ -99,6 +111,7 @@ class ProfileEdit extends React.Component {
                 name="email"
                 value={ email }
                 onChange={ this.handleChange }
+                onBlur={ this.emailValidation }
                 id="edit-input-email"
                 data-testid="edit-input-email"
               />
