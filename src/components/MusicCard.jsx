@@ -24,7 +24,6 @@ class MusicCard extends React.Component {
             id={ trackId }
             checked={ getFavorites(element) }
             onClick={ () => toggleFavorites(element) }
-            // onChange={ this.requestAddSong }
             data-testid={ `checkbox-music-${trackId}` }
           />
         </label>
