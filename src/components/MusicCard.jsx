@@ -1,52 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import { addSong } from '../services/favoriteSongsAPI';
-// import Loading from '../pages/Loading';
 
 class MusicCard extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      // loading: false,
-      // checked: false,
-    };
-
-    // this.requestAddSong = this.requestAddSong.bind(this);
-    // this.click = this.click.bind(this);
-  }
-
-  // async requestAddSong() {
-  //   const { element } = this.props;
-  //   this.setState({
-  //     loading: true,
-  //   });
-  //   await addSong(element);
-  //   this.setState({
-  //     loading: false,
-  //   });
-  // }
-
-  click() {
-    const { checked } = this.state;
-    if (checked) {
-      this.setState({
-        checked: false,
-      });
-    } else {
-      this.setState({
-        checked: true,
-      });
-    }
-  }
-
   render() {
     const { element: { trackName, previewUrl, trackId },
       getFavorites, toggleFavorites } = this.props;
     const { element } = this.props;
-
-    // const { loading } = this.state;
-
-    // if (loading) return <Loading />;
 
     return (
       <div>

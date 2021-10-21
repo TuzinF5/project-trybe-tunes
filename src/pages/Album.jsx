@@ -82,7 +82,6 @@ class Album extends React.Component {
 
   render() {
     const { musicList, loading } = this.state;
-    // if (loading) return <Loading />;
     return (
       <div data-testid="page-album">
         <Header />
