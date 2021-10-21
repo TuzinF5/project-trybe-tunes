@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import getMusics from '../services/musicsAPI';
 import MusicCard from '../components/MusicCard';
-import { getFavoriteSongs } from '../services/favoriteSongsAPI';
 import Loading from './Loading';
+import { addSong, removeSong, getFavoriteSongs } from '../services/favoriteSongsAPI';
 
 class Album extends React.Component {
   constructor() {
@@ -13,15 +13,24 @@ class Album extends React.Component {
     this.state = {
       musicList: [],
       loading: false,
+      musicFavorites: [],
     };
 
     this.resultGetMusic = this.resultGetMusic.bind(this);
     this.requestGetFavoriteSongs = this.requestGetFavoriteSongs.bind(this);
+    this.getFavorites = this.getFavorites.bind(this);
+    this.toggleFavorites = this.toggleFavorites.bind(this);
   }
 
   componentDidMount() {
     this.resultGetMusic();
     this.requestGetFavoriteSongs();
+  }
+
+  getFavorites(music) {
+    const { musicFavorites } = this.state;
+    const isFavorite = musicFavorites.some((song) => song.trackId === music.trackId);
+    return isFavorite;
   }
 
   resultGetMusic = async () => {
@@ -36,19 +45,44 @@ class Album extends React.Component {
     });
   };
 
+  toggleFavorites(music) {
+    this.setState({
+      loading: true,
+    });
+    const { musicFavorites } = this.state;
+    const isFavorite = this.getFavorites(music);
+    if (!isFavorite) {
+      addSong(music).then(() => {
+        this.setState({
+          loading: false,
+          musicFavorites: [...musicFavorites, music],
+        });
+      });
+    } else {
+      removeSong(music).then(() => {
+        const filter = musicFavorites.filter((song) => song !== music);
+        this.setState({
+          loading: false,
+          musicFavorites: filter,
+        });
+      });
+    }
+  }
+
   async requestGetFavoriteSongs() {
     this.setState({
       loading: true,
     });
-    await getFavoriteSongs();
+    const musicFavorites = await getFavoriteSongs();
     this.setState({
       loading: false,
+      musicFavorites,
     });
   }
 
   render() {
     const { musicList, loading } = this.state;
-    if (loading) return <Loading />;
+    // if (loading) return <Loading />;
     return (
       <div data-testid="page-album">
         <Header />
@@ -62,9 +96,14 @@ class Album extends React.Component {
                   <MusicCard
                     key={ element.trackId }
                     element={ element }
+                    getFavorites={ this.getFavorites }
+                    toggleFavorites={ this.toggleFavorites }
                   />
                 ))}
             </div>
+            {
+              loading && <Loading />
+            }
           </div>
         )}
       </div>
