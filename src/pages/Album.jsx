@@ -60,7 +60,7 @@ class Album extends React.Component {
       });
     } else {
       removeSong(music).then(() => {
-        const filter = musicFavorites.filter((song) => song !== music);
+        const filter = musicFavorites.filter(({ trackId }) => trackId !== music.trackId);
         this.setState({
           loading: false,
           musicFavorites: filter,
