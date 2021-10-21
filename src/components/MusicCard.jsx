@@ -1,30 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { addSong } from '../services/favoriteSongsAPI';
-import Loading from '../pages/Loading';
+// import { addSong } from '../services/favoriteSongsAPI';
+// import Loading from '../pages/Loading';
 
 class MusicCard extends React.Component {
   constructor() {
     super();
     this.state = {
-      loading: false,
-      checked: false,
+      // loading: false,
+      // checked: false,
     };
 
-    this.requestAddSong = this.requestAddSong.bind(this);
-    this.click = this.click.bind(this);
+    // this.requestAddSong = this.requestAddSong.bind(this);
+    // this.click = this.click.bind(this);
   }
 
-  async requestAddSong() {
-    const { element } = this.props;
-    this.setState({
-      loading: true,
-    });
-    await addSong(element);
-    this.setState({
-      loading: false,
-    });
-  }
+  // async requestAddSong() {
+  //   const { element } = this.props;
+  //   this.setState({
+  //     loading: true,
+  //   });
+  //   await addSong(element);
+  //   this.setState({
+  //     loading: false,
+  //   });
+  // }
 
   click() {
     const { checked } = this.state;
@@ -40,10 +40,13 @@ class MusicCard extends React.Component {
   }
 
   render() {
-    const { element: { trackName, previewUrl, trackId } } = this.props;
-    const { checked, loading } = this.state;
+    const { element: { trackName, previewUrl, trackId },
+      getFavorites, toggleFavorites } = this.props;
+    const { element } = this.props;
 
-    if (loading) return <Loading />;
+    // const { loading } = this.state;
+
+    // if (loading) return <Loading />;
 
     return (
       <div>
@@ -60,9 +63,9 @@ class MusicCard extends React.Component {
             type="checkbox"
             name=""
             id={ trackId }
-            checked={ checked }
-            onClick={ this.click }
-            onChange={ this.requestAddSong }
+            checked={ getFavorites(element) }
+            onClick={ () => toggleFavorites(element) }
+            // onChange={ this.requestAddSong }
             data-testid={ `checkbox-music-${trackId}` }
           />
         </label>
@@ -72,6 +75,8 @@ class MusicCard extends React.Component {
 }
 
 MusicCard.propTypes = {
+  getFavorites: PropTypes.func.isRequired,
+  toggleFavorites: PropTypes.func.isRequired,
   element: PropTypes.shape({
     trackName: PropTypes.string,
     previewUrl: PropTypes.string,
