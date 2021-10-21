@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import { getUser } from '../services/userAPI';
 import Loading from './Loading';
@@ -45,6 +46,7 @@ class Profile extends React.Component {
           <p>{user.email}</p>
           <img src={ user.image } alt={ user.name } data-testid="profile-image" />
         </div>
+        <Link to="/profile/edit">Editar perfil</Link>
       </div>
     );
   }
