@@ -1,5 +1,5 @@
 import React from 'react';
-import { getUser } from '../services/userAPI';
+import { getUser, updateUser } from '../services/userAPI';
 import Header from '../components/Header';
 import Loading from './Loading';
 
@@ -20,6 +20,7 @@ class ProfileEdit extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.inputValidation = this.inputValidation.bind(this);
     this.emailValidation = this.emailValidation.bind(this);
+    this.updateInfoUser = this.updateInfoUser.bind(this);
   }
 
   componentDidMount() {
@@ -30,6 +31,24 @@ class ProfileEdit extends React.Component {
     this.setState({
       [event.target.name]: event.target.value,
     }, () => this.inputValidation());
+  }
+
+  async updateInfoUser() {
+    const { description, name, email, image } = this.state;
+    const objUser = {
+      name,
+      email,
+      image,
+      description,
+    };
+
+    this.setState({
+      loading: true,
+    });
+    await updateUser(objUser);
+    this.setState({
+      loading: false,
+    });
   }
 
   emailValidation() {
@@ -134,6 +153,7 @@ class ProfileEdit extends React.Component {
                 type="submit"
                 disabled={ isSaveButtonDisabled }
                 data-testid="edit-button-save"
+                onClick={ this.updateInfoUser }
               >
                 Salvar
               </button>
