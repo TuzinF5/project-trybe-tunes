@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { getUser, updateUser } from '../services/userAPI';
 import Header from '../components/Header';
 import Loading from './Loading';
@@ -35,6 +36,7 @@ class ProfileEdit extends React.Component {
 
   async updateInfoUser() {
     const { description, name, email, image } = this.state;
+    const { history } = this.props;
     const objUser = {
       name,
       email,
@@ -42,13 +44,8 @@ class ProfileEdit extends React.Component {
       description,
     };
 
-    this.setState({
-      loading: true,
-    });
     await updateUser(objUser);
-    this.setState({
-      loading: false,
-    });
+    history.push('/profile');
   }
 
   emailValidation() {
@@ -89,7 +86,8 @@ class ProfileEdit extends React.Component {
   }
 
   render() {
-    const { loading, description, name, email, image, isSaveButtonDisabled } = this.state;
+    const { loading, description, name, email,
+      image, isSaveButtonDisabled } = this.state;
 
     return (
       <div data-testid="page-profile-edit">
@@ -150,12 +148,12 @@ class ProfileEdit extends React.Component {
 
             <div>
               <button
-                type="submit"
+                type="button"
                 disabled={ isSaveButtonDisabled }
                 data-testid="edit-button-save"
                 onClick={ this.updateInfoUser }
               >
-                Salvar
+                Editar perfil
               </button>
             </div>
           </form>
@@ -164,5 +162,11 @@ class ProfileEdit extends React.Component {
     );
   }
 }
+
+ProfileEdit.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
 
 export default ProfileEdit;
