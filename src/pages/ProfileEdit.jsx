@@ -13,10 +13,12 @@ class ProfileEdit extends React.Component {
       email: '',
       image: '',
       name: '',
+      isSaveButtonDisabled: true,
     };
 
     this.userInformation = this.userInformation.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.inputValidation = this.inputValidation.bind(this);
   }
 
   componentDidMount() {
@@ -26,6 +28,18 @@ class ProfileEdit extends React.Component {
   handleChange(event) {
     this.setState({
       [event.target.name]: event.target.value,
+    }, () => this.inputValidation());
+  }
+
+  inputValidation() {
+    const { description, name, email, image } = this.state;
+    if (description !== '' && name !== '' && email !== '' && image !== '') {
+      return this.setState({
+        isSaveButtonDisabled: false,
+      });
+    }
+    this.setState({
+      isSaveButtonDisabled: true,
     });
   }
 
@@ -44,7 +58,7 @@ class ProfileEdit extends React.Component {
   }
 
   render() {
-    const { loading, description, name, email, image } = this.state;
+    const { loading, description, name, email, image, isSaveButtonDisabled } = this.state;
 
     return (
       <div data-testid="page-profile-edit">
@@ -103,7 +117,11 @@ class ProfileEdit extends React.Component {
             </label>
 
             <div>
-              <button type="submit" data-testid="edit-button-save">
+              <button
+                type="submit"
+                disabled={ isSaveButtonDisabled }
+                data-testid="edit-button-save"
+              >
                 Salvar
               </button>
             </div>
