@@ -1,0 +1,10 @@
+.main-loading {
+  align-items: center;
+  background-image: url('../images/loading.gif');
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  width: 100%;
+}
