@@ -1,0 +1,80 @@
+/* stylelint-disable function-comma-space-after */
+
+/* stylelint-disable property-no-vendor-prefix */
+.main-login {
+  align-items: center;
+  background-image: url('../images/turntable.jpg');
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+}
+
+.section-login {
+  align-items: center;
+  background: linear-gradient(90deg,
+  rgba(9, 9, 121, 0.3) 0%,
+  rgba(97, 9, 121, 0.5) 50%,
+  rgba(0, 212, 255, 0.3) 100%);
+  border-radius: 4px;
+  -webkit-box-shadow: 10px 10px 5px 0 rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 10px 10px 5px 0 rgba(0, 0, 0, 0.75);
+  box-shadow: 10px 10px 5px 0 rgba(0, 0, 0, 0.75);
+  display: flex;
+  flex-direction: column;
+  height: 300px;
+  justify-content: space-around;
+  width: 35%;
+}
+
+.div-title-login {
+  color: #f0f0f0;
+  font-size: 40px;
+  font-weight: 500;
+  text-shadow: 2px 2px 6px rgb(3, 141, 111);
+}
+
+.div-form-login {
+  width: 300px;
+}
+
+.form-login {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.input-login {
+  border: 0;
+  border-radius: 4px;
+  font-size: 18px;
+  height: 30px;
+  padding-left: 4px;
+  width: 100%;
+}
+
+.input-login:focus {
+  outline: 0;
+}
+
+.button-login {
+  background-color: rgb(97, 9, 121);
+  border: 0;
+  border-radius: 4px;
+  color: #f0f0f0;
+  font-size: 20px;
+  font-weight: 300;
+  height: 40px;
+  margin-top: 10px;
+  width: 100px;
+}
+
+.button-login:hover {
+  background-color: rgb(15, 12, 163);
+  cursor: pointer;
+}
+
+.button-login:disabled, .button-login:hover:disabled {
+  background-color: rgb(97, 9, 121);
+  cursor: initial;
+  opacity: 0.5;
+}
