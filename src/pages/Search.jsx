@@ -1,9 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import searchAlbumsAPI from '../services/searchAlbumsAPI';
 import Loading from './Loading';
 import '../styles/Search.css';
+import AlbumList from '../components/AlbumList';
 
 class Search extends React.Component {
   constructor() {
@@ -86,24 +86,20 @@ class Search extends React.Component {
           <Loading />
         )}
         {valueState.artist.length > 0 && (
-          <div>
-            <p>{`Resultado de álbuns de: ${valueState.artist}`}</p>
+          <main className="main-album-list">
+            <div className="title-album-list">
+              <p>{`Resultado de álbuns de: ${valueState.artist}`}</p>
+            </div>
             {valueState.artistList.length === 0 ? (
-              <p>Nenhum álbum foi encontrado</p>
+              <div>
+                <p>Nenhum álbum foi encontrado</p>
+              </div>
             ) : (
               valueState.artistList.map((element, index) => (
-                <div key={ index }>
-                  <p>{element.collectionName}</p>
-                  <Link
-                    to={ `/album/${element.collectionId}` }
-                    data-testid={ `link-to-album-${element.collectionId}` }
-                  >
-                    {element.artistName}
-                  </Link>
-                </div>
+                <AlbumList key={ index } element={ element } />
               ))
             )}
-          </div>
+          </main>
         )}
       </div>
     );
