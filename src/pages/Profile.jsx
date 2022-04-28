@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import { getUser } from '../services/userAPI';
 import Loading from './Loading';
+import '../styles/Profile.css';
 
 class Profile extends React.Component {
   constructor() {
@@ -37,16 +38,42 @@ class Profile extends React.Component {
     return (
       <div data-testid="page-profile">
         <Header />
-        {
-          loading && <Loading />
-        }
-        <div>
-          <p>{user.name}</p>
-          <p>{user.description}</p>
-          <p>{user.email}</p>
-          <img src={ user.image } alt={ user.name } data-testid="profile-image" />
-        </div>
-        <Link to="/profile/edit">Editar perfil</Link>
+        {loading && <Loading />}
+        <main className="main-profile">
+          <section>
+            <div>
+              <p>
+                Nome:
+                {' '}
+                {user.name}
+              </p>
+            </div>
+            <div>
+              <p>
+                Descrição:
+                {' '}
+                {user.description}
+              </p>
+            </div>
+            <div>
+              <p>
+                Email:
+                {' '}
+                {user.email}
+              </p>
+            </div>
+            <div>
+              <img
+                src={ user.image }
+                alt={ user.name }
+                data-testid="profile-image"
+              />
+            </div>
+          </section>
+          <div>
+            <Link to="/profile/edit">Editar perfil</Link>
+          </div>
+        </main>
       </div>
     );
   }
