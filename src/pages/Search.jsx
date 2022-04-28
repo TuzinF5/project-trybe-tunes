@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import searchAlbumsAPI from '../services/searchAlbumsAPI';
 import Loading from './Loading';
+import '../styles/Search.css';
 
 class Search extends React.Component {
   constructor() {
@@ -55,24 +56,32 @@ class Search extends React.Component {
       <div data-testid="page-search">
         <Header />
         {!valueState.loading ? (
-          <form>
-            <input
-              type="text"
-              name="nameInput"
-              id="search-artist-input"
-              data-testid="search-artist-input"
-              value={ valueState.nameInput }
-              onChange={ this.handleChange }
-            />
-            <button
-              type="submit"
-              onClick={ this.makingRequest }
-              disabled={ valueState.disableButton }
-              data-testid="search-artist-button"
-            >
-              Pesquisar
-            </button>
-          </form>
+          <main className="main-search">
+            <section>
+              <form>
+                <div>
+                  <input
+                    type="text"
+                    name="nameInput"
+                    id="search-artist-input"
+                    data-testid="search-artist-input"
+                    value={ valueState.nameInput }
+                    onChange={ this.handleChange }
+                  />
+                </div>
+                <div>
+                  <button
+                    type="submit"
+                    onClick={ this.makingRequest }
+                    disabled={ valueState.disableButton }
+                    data-testid="search-artist-button"
+                  >
+                    Pesquisar
+                  </button>
+                </div>
+              </form>
+            </section>
+          </main>
         ) : (
           <Loading />
         )}
