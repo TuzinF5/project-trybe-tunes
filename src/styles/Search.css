@@ -1,0 +1,16 @@
+.main-search {
+  display: flex;
+  justify-content: center;
+}
+
+.title-album-list {
+  margin: 20px 0;
+  text-align: center;
+  width: 100%;
+}
+
+.main-album-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
