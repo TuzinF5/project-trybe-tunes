@@ -1,0 +1,13 @@
+.main-profile {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+img {
+  border: 1px solid rgb(78, 78, 78);
+  border-radius: 50%;
+  height: 100px;
+  width: 100px;
+}
