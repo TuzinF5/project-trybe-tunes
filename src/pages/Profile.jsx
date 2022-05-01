@@ -38,42 +38,45 @@ class Profile extends React.Component {
     return (
       <div data-testid="page-profile">
         <Header />
-        {loading && <Loading />}
-        <main className="main-profile">
-          <section>
+        {loading ? (
+          <Loading />
+        ) : (
+          <main className="main-profile">
+            <section>
+              <div>
+                <p>
+                  Nome:
+                  {' '}
+                  {user.name}
+                </p>
+              </div>
+              <div>
+                <p>
+                  Descrição:
+                  {' '}
+                  {user.description}
+                </p>
+              </div>
+              <div>
+                <p>
+                  Email:
+                  {' '}
+                  {user.email}
+                </p>
+              </div>
+              <div>
+                <img
+                  src={ user.image }
+                  alt={ user.name }
+                  data-testid="profile-image"
+                />
+              </div>
+            </section>
             <div>
-              <p>
-                Nome:
-                {' '}
-                {user.name}
-              </p>
+              <Link to="/profile/edit">Editar perfil</Link>
             </div>
-            <div>
-              <p>
-                Descrição:
-                {' '}
-                {user.description}
-              </p>
-            </div>
-            <div>
-              <p>
-                Email:
-                {' '}
-                {user.email}
-              </p>
-            </div>
-            <div>
-              <img
-                src={ user.image }
-                alt={ user.name }
-                data-testid="profile-image"
-              />
-            </div>
-          </section>
-          <div>
-            <Link to="/profile/edit">Editar perfil</Link>
-          </div>
-        </main>
+          </main>
+        )}
       </div>
     );
   }
