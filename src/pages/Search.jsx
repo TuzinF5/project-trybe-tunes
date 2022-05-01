@@ -1,7 +1,6 @@
 import React from 'react';
 import Header from '../components/Header';
 import searchAlbumsAPI from '../services/searchAlbumsAPI';
-import Loading from './Loading';
 import '../styles/Search.css';
 import AlbumList from '../components/AlbumList';
 
@@ -55,7 +54,7 @@ class Search extends React.Component {
     return (
       <div data-testid="page-search">
         <Header />
-        {!valueState.loading ? (
+        {!valueState.loading && (
           <main className="main-search">
             <section>
               <form>
@@ -82,8 +81,6 @@ class Search extends React.Component {
               </form>
             </section>
           </main>
-        ) : (
-          <Loading />
         )}
         {valueState.artist.length > 0 && (
           <main className="main-album-list">
